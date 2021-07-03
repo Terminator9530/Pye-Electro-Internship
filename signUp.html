@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Sign Up</title>
+</head>
+<body>
+    <form>
+        <input type="text" id = "userName" placeholder="Username">
+        <input type="password" id = "password" placeholder="Password">
+        <input type="text" id = "emailId" placeholder="Email Id">
+        <input type="number" id = "phoneNo" placeholder="Phone Number">
+        <input type="text" id = "firstName" placeholder="First Name">
+        <input type="text" id = "lastName" placeholder="Last Name">
+        <button id = "btnSignUp">Sign Up</button>
+    </form>
+    <script>
+
+        function getJSONObject(){
+            let jsonObj = {};
+            jsonObj["email_id"] = document.getElementById("emailId").value;
+            jsonObj["password"] = document.getElementById("password").value;
+            jsonObj["user_name"] = document.getElementById("emailId").value;
+            jsonObj["first_name"] = document.getElementById("firstName").value;
+            jsonObj["last_name"] = document.getElementById("lastName").value;
+            jsonObj["phone_number"] = document.getElementById("phoneNo").value;
+            return jsonObj;
+        }
+
+        document.getElementById("btnSignUp").onclick = function(e){
+            e.preventDefault();
+            let userDetails = getJSONObject();
+            var settings = {
+                "url": "https://dummy.thefourthmatter.com/api/v1/user/signup",
+                "method": "POST",
+                "headers": {
+                    "Access-Control-Allow-Origin": "*",
+                    "Authorization": "AWS4-HMAC-SHA256 Credential=AKIAQOGDE7CYWRV4NLWD/20201129/us-east-2au0009/execute-api/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=862f541ebd866db9bc3f1a59ba74e676d9eaa4fd4d2c6341bc91bf66971fb730",
+                    "Referer": "https://abynow07.wixsite.com/",
+                    "X-Amz-Date": "20201129T064021Z",
+                    "X-Amz-Content-Sha256": "beaead3198f7da1e70d03ab969765e0821b24fc913697e929e726aeaebf0eba3",
+                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify(userDetails),
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                if(response){
+                    window.location.replace(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/signIn.html`);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
